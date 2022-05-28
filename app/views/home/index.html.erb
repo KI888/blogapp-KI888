@@ -1,0 +1,8 @@
+<h1>HOME</h1>
+<h2><%= @title %></h2>
+
+<%#以下のリンクの貼り方だとurlが変更された時に対応できない%>
+<%# <a href="/about">About</a> %>
+
+<%# URLヘルパー指定 %>
+<%= link_to 'About', about_path %>
