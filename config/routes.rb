@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   
   #rootは'/'を意味する ∴root to: は get '/' => 'home#index'と同じ
   #rootを使用することでURLヘルパー指定が可能になる rails/info/routesにヘルパーurlが追加される
-  root to: 'home#index'
+  #root to: 'home#index'
+  root to: 'articles#index'
+
   #get '/' => 'home#index'
-  get '/about' =>'home#about'
+  #get '/about' =>'home#about'
 end
