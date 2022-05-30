@@ -8,4 +8,7 @@ Rails.application.routes.draw do
 
   #get '/' => 'home#index'
   #get '/about' =>'home#about'
+
+  resources :articles, only: [:show]
+  
 end
