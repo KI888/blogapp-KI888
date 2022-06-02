@@ -13,6 +13,8 @@
         <div class="dropdown-content mini">
           <%= link_to '編集する', edit_article_path(@article) %>
           <%# <a href="#">編集する</a> %>
+          <%# link_toはdefaultでGETリクエストを送信するよう設定されている%>
+          <%= link_to '削除する', article_path(@article), data: { method: 'delete', confirm: '本当に削除してもよろしいですか？'} %>
         </div>
       </div>
     </div>
