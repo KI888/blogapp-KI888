@@ -47,6 +47,15 @@ class ArticlesController < ApplicationController
         end
     end
 
+    def destroy
+        article = Article.find(params[:id])
+        # !をつけなくても良いが、つけることにより削除されなかった場合に例外が発生する
+        # !:ActiveRecord::RecordNotDestroyed例外を発生させる
+        # !:appの実装が誤っていることによりここで処理が中断されるよう例外が発生する
+        article.destroy!
+        redirect_to root_path, notice: '削除に成功しました'
+    end
+
 
 
     # params:フォームなどによって送られてきた情報（パラメーター）を取得するメソッド
