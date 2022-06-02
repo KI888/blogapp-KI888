@@ -9,6 +9,7 @@
 #Article.create({title:'新しい記事だよ', content:'素晴らしい記事です。これはすごいです。'})
 #Article.create({title:'素晴らしい記事だよ', content:'あああああああああああああああああああ'})
 
+# seeds.rbはダミーデータを作るためのファイル
 10.times do
 Article.create(
     title: Faker::Lorem.sentence(word_count: 5),

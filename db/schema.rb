@@ -10,6 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
+# 現段階でのdbの状況を示している（自動で作成される）
+# ここに入力しても操作できない（あくまでメモ書き）
 ActiveRecord::Schema.define(version: 2022_05_29_024635) do
 
   create_table "articles", force: :cascade do |t|
