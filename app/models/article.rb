@@ -4,4 +4,12 @@ class Article < ApplicationRecord
     # 以下、追記
     validates :title, presence: true
     validates :content, presence: true
+
+
+    # index.html.erb,show.html.erbで使用
+    def display_created_at
+        # selfにてarticleを取得
+        I18n.l(self.created_at, format: :default)
+    end
 end
+
