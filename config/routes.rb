@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   #get '/' => 'home#index'
   #get '/about' =>'home#about'
 
-  resources :articles, only: [:show, :new, :create, :edit, :update, :destroy]
-  
+  #resources :articles, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  # 上記のonlyは[:index, :show, :new, :create, :edit, :update, :destroy]の部分を指しているのでonly以降は不要
+  resources :articles
+
 end

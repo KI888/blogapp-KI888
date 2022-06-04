@@ -1,0 +1,31 @@
+<%# index.html.erbへの部分テンプレート %>
+<%= link_to article_path(id: article.id) do %>
+    <div class="card">
+      <div class="card_image">
+        <%= image_tag 'eyecatch1.png' %>
+      </div>
+
+      <div class="card_content">
+        <div class="card_title">
+          <%= article.title %>
+        </div>
+        <div class="card_heart">
+          <%= image_tag 'heart.svg' %>
+          <span>23</span>
+        </div>
+
+        <div class="card_detail">
+          <%= image_tag 'default-avatar.png' %>
+          <div>
+            <p>cohki0305</p>
+            <%# I18n:internationalizationの略  先頭の文字i、最後の文字n、その間の文字数が18なので、I18nと略されている%>
+            <%# I18n:en.yml,ja.ymlなどの色々な言語に対応する国際化の為のクラス %>
+            <%# <p><%= I18n.l(article.created_at, format: :default) %> <%# </p> %>
+            <%# ↓以下のコードは↑上記のコードを一旦article.rbのArticleクラスに定義することにより↓以下のarticleをインスタンスとして使用しているケース%>
+            <%# つまりarticle.rbのArticleクラスに記述されているdisplay_created_atメソッドを使用している%>
+            <p><%= article.display_created_at %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+<%end%>

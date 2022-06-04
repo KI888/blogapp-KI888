@@ -1,6 +1,10 @@
 #ファイル名：articles_controller.rb と class名：ArticlesController は同じにするルール
 #コントローラーの名称は複数形がある名詞は複数形にするのがルール ∴複数形がない名詞は避けるべき
 class ArticlesController < ApplicationController
+    before_action :set_article, only: [:show, :edit, :update]
+
+
+
     def index
         #render 'home/index'
         #@title = 'デイトラ'
@@ -9,7 +13,7 @@ class ArticlesController < ApplicationController
 
 
     def show
-        @article = Article.find(params[:id])
+        #@article = Article.find(params[:id])
     end
 
     def new
@@ -33,11 +37,11 @@ class ArticlesController < ApplicationController
 
 
     def edit
-        @article = Article.find(params[:id])
+       # @article = Article.find(params[:id])
     end
 
     def update
-        @article = Article.find(params[:id])
+        #@article = Article.find(params[:id])
         # privateメソッドのarticle_paramsにてupdateの対象を限定
         if @article.update(article_params)
             redirect_to article_path(@article), notice: '更新できました'
@@ -48,6 +52,7 @@ class ArticlesController < ApplicationController
     end
 
     def destroy
+        # インスタンス変数はviewsで使用するためにrailsでは使われる 今回はviewsには繋がないのでインスタンス変数不要
         article = Article.find(params[:id])
         # !をつけなくても良いが、つけることにより削除されなかった場合に例外が発生する
         # !:ActiveRecord::RecordNotDestroyed例外を発生させる
@@ -70,6 +75,11 @@ class ArticlesController < ApplicationController
         #puts '------------------'
         params.require(:article).permit(:title, :content)
     end
+
+    def set_article
+        @article = Article.find(params[:id])
+    end
+
 
 
     #def about
