@@ -3,14 +3,11 @@
 class ArticlesController < ApplicationController
     before_action :set_article, only: [:show, :edit, :update]
 
-
-
     def index
         #render 'home/index'
         #@title = 'デイトラ'
         @articles = Article.all
     end
-
 
     def show
         #@article = Article.find(params[:id])
@@ -19,7 +16,6 @@ class ArticlesController < ApplicationController
     def new
         @article = Article.new
     end
-
 
     # https://qiita.com/Kawanji01/items/96fff507ed2f75403ecb
     # index.html.erb:<%= link_to article_path(id: article.id) do %>と同様の意味
@@ -35,7 +31,6 @@ class ArticlesController < ApplicationController
         end
     end
 
-
     def edit
        # @article = Article.find(params[:id])
     end
@@ -46,7 +41,7 @@ class ArticlesController < ApplicationController
         if @article.update(article_params)
             redirect_to article_path(@article), notice: '更新できました'
         else
-            flash.now[:error] = '更新できませんでした' 
+            flash.now[:error] = '更新できませんでした'
             render :edit
         end
     end
@@ -60,8 +55,6 @@ class ArticlesController < ApplicationController
         article.destroy!
         redirect_to root_path, notice: '削除に成功しました'
     end
-
-
 
     # params:フォームなどによって送られてきた情報（パラメーター）を取得するメソッド
     # require:読み込む
@@ -79,8 +72,6 @@ class ArticlesController < ApplicationController
     def set_article
         @article = Article.find(params[:id])
     end
-
-
 
     #def about
     #end
