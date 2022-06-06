@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   #rootは'/'を意味する ∴root to: は get '/' => 'home#index'と同じ

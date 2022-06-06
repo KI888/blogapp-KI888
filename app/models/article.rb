@@ -16,11 +16,9 @@ class Article < ApplicationRecord
     validates :title, length: { minimum: 2, maximum: 100 }
     validates :title, format: { with: /\A(?!\@)/ }
 
-
     validates :content, presence: true
     validates :content, length: {minimum: 10}
     validates :content, uniqueness: true
-
 
     # 独自のvalidate作成（複数のカラムを参照してルールを決めるようなメソッドはrailsに用意されてないから自ら作成）
     # 独自のvalidate:複数形validatesではなく単数形validateを使用することに注意

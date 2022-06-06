@@ -2,6 +2,7 @@
 #コントローラーの名称は複数形がある名詞は複数形にするのがルール ∴複数形がない名詞は避けるべき
 class ArticlesController < ApplicationController
     before_action :set_article, only: [:show, :edit, :update]
+    before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
     def index
         #render 'home/index'
