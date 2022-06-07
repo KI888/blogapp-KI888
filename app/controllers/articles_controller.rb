@@ -1,7 +1,7 @@
 #ファイル名：articles_controller.rb と class名：ArticlesController は同じにするルール
 #コントローラーの名称は複数形がある名詞は複数形にするのがルール ∴複数形がない名詞は避けるべき
 class ArticlesController < ApplicationController
-    before_action :set_article, only: [:show, :edit, :update]
+    before_action :set_article, only: [:show]
     before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
     def index
@@ -15,7 +15,9 @@ class ArticlesController < ApplicationController
     end
 
     def new
-        @article = Article.new
+        # @article = Article.new
+        # buildはnewと違いはないが、モデルの関連付けの際はbuildを使用する
+        @article = current_user.articles.build
     end
 
     # https://qiita.com/Kawanji01/items/96fff507ed2f75403ecb
@@ -23,7 +25,8 @@ class ArticlesController < ApplicationController
     def create
         # render :newでは@articleは保存されないがarticle_paramsの情報を持ったインスタンス変数がnew.html.erbで使用される
         # privateメソッドのarticle_paramsにてnewの対象を限定
-        @article = Article.new(article_params)
+        # @article = Article.new(article_params)
+        @article = current_user.articles.build(article_params)
         if @article.save
             redirect_to article_path(@article), notice: '保存できたよ'
         else
@@ -34,11 +37,13 @@ class ArticlesController < ApplicationController
 
     def edit
        # @article = Article.find(params[:id])
+       @article = current_user.articles.find(params[:id])
     end
 
     def update
         #@article = Article.find(params[:id])
         # privateメソッドのarticle_paramsにてupdateの対象を限定
+        @article = current_user.articles.find(params[:id])
         if @article.update(article_params)
             redirect_to article_path(@article), notice: '更新できました'
         else
@@ -49,7 +54,9 @@ class ArticlesController < ApplicationController
 
     def destroy
         # インスタンス変数はviewsで使用するためにrailsでは使われる 今回はviewsには繋がないのでインスタンス変数不要
-        article = Article.find(params[:id])
+        # article = Article.find(params[:id])
+        article = current_user.articles.find(params[:id])
+
         # !をつけなくても良いが、つけることにより削除されなかった場合に例外が発生する
         # !:ActiveRecord::RecordNotDestroyed例外を発生させる
         # !:appの実装が誤っていることによりここで処理が中断されるよう例外が発生する
