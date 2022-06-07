@@ -5,9 +5,11 @@
 class CreateArticles < ActiveRecord::Migration[6.0]
   def change
     create_table :articles do |t|
+      # 既存のテーブルにリファレンスを追加 references(カラム名 [, オプション]) :user=user_id
+      t.references :user, null: false
       #以下、カラムの追加
-      t.string :title
-      t.text :content
+      t.string :title, null: false
+      t.text :content, null: false
       t.timestamps
     end
   end
