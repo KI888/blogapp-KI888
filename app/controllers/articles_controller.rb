@@ -12,6 +12,8 @@ class ArticlesController < ApplicationController
 
     def show
         #@article = Article.find(params[:id])
+        # @article => このページの一番下のset_articleの@articleを使用
+        @comments = @article.comments
     end
 
     def new
