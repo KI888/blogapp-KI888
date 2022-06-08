@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   #resources :articles, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   # 上記のonlyは[:index, :show, :new, :create, :edit, :update, :destroy]の部分を指しているのでonly以降は不要
-  resources :articles
+  resources :articles do
+    resources :comments, only: [:new, :create]
+  end
 
 end

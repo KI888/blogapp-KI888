@@ -3,8 +3,8 @@
   .article_detail
     = image_tag 'default-avatar.png'
     %div      
-        %p= @article.author_name
-        %p= @article.display_created_at
+      %p= @article.author_name
+      %p= @article.display_created_at
 
     
     - if user_signed_in? && current_user.has_written?(@article)
@@ -18,3 +18,14 @@
     = @article.content
   .article_heart
     = image_tag 'heart.svg'
+
+.article
+  %h2 コメント一覧
+  - @comments.each do |comment|
+    .article_comment
+      %P= comment.content
+
+.container
+  = link_to new_article_comment_path(@article) do
+    .btn-secondary
+      コメントを追加

@@ -24,6 +24,11 @@ class Article < ApplicationRecord
     validates :content, length: {minimum: 10}
     validates :content, uniqueness: true
 
+    # ActiveRecordとして実行可能になる
+    # 1対多や多対多の関連付けを指定 has_many(関連モデル名, scope=nil, オプション引数) Articleに対して複数のコメントが存在するので複数形
+    # dependent: :destroy => この記事が削除された時にコメントも同時に削除
+    has_many :comments, dependent: :destroy
+
     # 記事をユーザーに紐づける設定 (記事はユーザーの中にあるからuserは単数形) ActiveRecordとして実行可能になる
     # belongs_to(関連モデル名, scope=nil, オプション={}) テーブル名でないところに注意
     belongs_to :user
