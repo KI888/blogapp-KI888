@@ -16,4 +16,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:new, :create]
   end
 
+  # 単数形に注意 単数なのでindexアクションはpathとして作成されない
+  # resourceの場合は:show, :edit, :updateのみで作成することが多い
+  resource :profile, only: [:show, :edit, :update]
+
 end
