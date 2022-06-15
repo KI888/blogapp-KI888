@@ -2,12 +2,12 @@
 #
 # Table name: articles
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  content    :text             not null
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :integer          not null
+#  user_id    :bigint           not null
 #
 # Indexes
 #
@@ -15,6 +15,7 @@
 #
 
 class Article < ApplicationRecord
+    has_one_attached :eyecatch
     # 以下、追記
     validates :title, presence: true
     validates :title, length: { minimum: 2, maximum: 100 }
@@ -28,6 +29,9 @@ class Article < ApplicationRecord
     # 1対多や多対多の関連付けを指定 has_many(関連モデル名, scope=nil, オプション引数) Articleに対して複数のコメントが存在するので複数形
     # dependent: :destroy => この記事が削除された時にコメントも同時に削除
     has_many :comments, dependent: :destroy
+
+    # articleは中間テーブルであるlikesを保持している関係なのでhas_many
+    has_many :likes, dependent: :destroy
 
     # 記事をユーザーに紐づける設定 (記事はユーザーの中にあるからuserは単数形) ActiveRecordとして実行可能になる
     # belongs_to(関連モデル名, scope=nil, オプション={}) テーブル名でないところに注意
@@ -47,6 +51,10 @@ class Article < ApplicationRecord
     # user.rbにおけるdisplay_nameメソッド使用可能
     def author_name
         user.display_name
+    end
+
+    def like_count
+        likes.count
     end
 
     private
