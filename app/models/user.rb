@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  remember_created_at    :datetime
@@ -27,6 +27,13 @@ class User < ApplicationRecord
   # has_many(関連モデル名, scope=nil, オプション引数) テーブル名でないところに注意
   has_many :articles, dependent: :destroy
 
+  # userは中間テーブルであるlikesを保持している関係なのでhas_many
+  has_many :likes, dependent: :destroy
+
+  # through => userstableとarticlestableをlikestable(中間テーブル)経由で紐付けいている
+  # favoritesテーブル・モデルは存在していないのでfavoritesはarticleを指しているという意味でsourceを記入
+  has_many :favorite_articles, through: :likes, source: :article
+
   # 一つしかないので複数形にしない
   # 1対1の関連を宣言 has_one(関連モデル名 [, scope ,オプション])
   has_one :profile, dependent: :destroy
@@ -38,6 +45,11 @@ class User < ApplicationRecord
   # show.html.hamlにて使用
   def has_written?(article)
     articles.exists?(id: article.id)
+  end
+
+  # show.html.hamlにて使用
+  def has_liked?(article)
+    likes.exists?(article_id: article.id)
   end
 
   # aaa@gmail.comにおいて前半の@までをsplitにより取得 => ['aaa', 'gmail.com'] first=[0]
